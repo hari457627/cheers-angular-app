@@ -1,0 +1,31 @@
+node {
+
+    stage('CheckOut') {
+        echo 'Code Checkout started'
+        git branch: 'master', credentialsId: 'gitlab-admin-id', url: 'https://nbostech@gitlab.com/wavelabs/cheers-angular-app.git'
+        echo 'configure done'
+        sh "ls -ltr"
+    }
+    stage('Build') {
+        echo 'Building app'
+        sh "npm install"
+   }
+    stage('Junit') {
+        echo 'Junit Report Generation'
+        sh "grunt jshint --force"
+        junit "jshint.xml"
+    }
+    stage('deployment') {
+        if (isUnix()) {
+            echo 'Deploying to Docker'
+            /*sh 'sudo -S true'*/
+            sh 'docker rm $(docker stop $(docker ps -a -q --filter ancestor=myangularapp)) || true'
+            sh 'docker build -t myangularapp .'
+            sh 'docker run -d -p 8001:5000 myangularapp'
+        } else {
+            bat 'docker build -t myangularapp .'
+            /*sh 'docker run -d -p 7500:7500 easypricing_app'*/
+            bat 'docker run -it -p 8001:5000 myangularapp'
+        }
+    }
+}

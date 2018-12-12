@@ -1,0 +1,445 @@
+<section ng-controller="EmployeeReviewDashboardCtrl" layout-padding
+      ng-cloak>
+
+
+
+    <ul class="breadcrumb">
+        <!-- <li><a class="dashboard" href="/#!/EmployeeReview/admin">Dashboard</a></li>-->
+
+
+
+        <li><a class="dashboard">My Surveys</a></li>
+
+
+    </ul>
+
+
+    <!--<div layout="row" layout-align="end center">
+
+        <button class="md-fab md-button md-ink-ripple" type="button" ng-click="addEvent();" style="float: right; position: relative; top: 10px; right: 10px;">
+            <md-icon class="ng-scope" aria-hidden="true">add</md-icon><md-tooltip md-direction="top">Add Survey</md-tooltip>
+
+            <div class="md-ripple-container"></div>
+        </button>
+
+    </div>-->
+    <md-content layout="column" flex>
+        <div class="row" style="margin-top: 14px">
+
+        <div class="col-md-3" style="margin-top: 8px">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" autocomplete="off"  ng-model="search.name"  placeholder="Search Titles"/>
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+
+            <!--<input autocomplete="off" type="search" ng-model="search.name"  placeholder="Search Titles" class="form-control"/>-->
+            <!-- <a href="#" class="search-icon">
+                 <i class="fa fa-search" id="myimage" ng-click="getnames(AddqueryArr.qfrom,patName.pName)"></i>
+             </a>-->
+        </div>
+
+        <div class="col-md-8 col-md-offset-1 createsurv">
+            <md-button class="md-raised  md-primary" ng-click="addEvent();" style="float: right; width: 200px;">+ Create Survey</md-button>
+        </div>
+
+        </div>
+
+
+
+        <!--<p><input type="text" ng-model="search.name"></p>-->
+        <md-table-container>
+            <table md-table >
+                <thead md-head md-order="query.order">
+                <tr md-row style="padding-left: 40px;">
+                    <!--<th>Survey Name</th>
+                    <th>Modified Date</th>
+                    <th>Number Of Responses</th>
+                    <th>Collect Your Response</th>
+                    <th>Analyze</th>
+                    md-order-by="{{column.name}}-->
+                    <th md-column ng-repeat="column in autocolumn">
+                        <span>{{column.display}}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <!--<tr md-row ng-repeat="row in datatable.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">-->
+                <tr ng-repeat="row in surveys | filter:search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <td md-cell>{{row.name}}</td>
+                    <td md-cell style="padding-left: 40px">{{row.updated_at | date : "dd/MM/yyyy"}}</td>
+                    <td md-cell style="padding-left: 60px">{{row.response_count}}</td>
+                    <td md-cell ng-click="surveydashboard(row,1)" style="padding-left: 40px"><img src="mod_EmployeeReview/assets/icons/shareicon.jpeg" alt="bargraph" width="auto" height="26"></td>
+                    <td md-cell ng-click="surveydashboard(row,2)" style="padding-left: 40px"><img src="mod_EmployeeReview/assets/icons/bargraph.jpeg" alt="bargraph" width="auto" height="26"></td>
+
+
+
+                    <!--ng-click="showTemplate(row.template_name)-->
+                   <!--<td md-cell>
+                    <md-icon ng-if="row.status" aria-label="View Members" class="md-secondary md-hue-3">check_circle</md-icon>
+                    <md-icon ng-if="!row.status" aria-label="View Members" class="md-secondary md-hue-3">remove_circle</md-icon>
+                </td>-->
+                    <!--<td md-cell>
+                         <md-icon ng-if="row.status"  ng-click="showAssignPage(row.id)" aria-label="View Members" class="md-primary md-hue-3">people<md-tooltip md-direction="top">Assign Survey</md-tooltip></md-icon>
+                         <md-icon ng-if="!row.status"  aria-label="View Members" class="md-hue-3">people</md-icon>&ndash;&gt;
+                        <md-icon ng-click="editSurvey(row.id)" aria-label="Edit Company" class="md-primary md-hue-3">mode_edit<md-tooltip md-direction="top">Update</md-tooltip></md-icon>
+                         <md-icon ng-click="assignListPage(row.id)" aria-label="view reviews" class="md-primary md-hue-3">keyboard_arrow_right<md-tooltip md-direction="top"> Review(s)</md-tooltip></md-icon>
+                    </td>-->
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <div style="margin-top: 50px">
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{datatable.count}}" md-page-select="options.pageSelect"></md-table-pagination>
+        </div>
+    </md-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--<div ng-click="surveydashboard(row)">-->
+            <!--<md-card-title>-->
+                <!--<md-card-title-text class="template_name">-->
+                    <!--<span class="md-headline">{{row.template_name}}</span>-->
+                <!--</md-card-title-text>-->
+            <!--</md-card-title>-->
+            <!--<md-card-content class="template_desc">-->
+                <!--<p>-->
+                    <!--{{row.description}}-->
+                <!--</p>-->
+            <!--</md-card-content>-->
+        <!--</div>-->
+
+
+       <!-- <div class="card" ng-click="surveydashboard(row)">
+            <div class="card-header">
+                <h4 class="title">
+                    {{row.template_name}}
+
+                </h4>
+            </div>
+            <div class="card-content">
+                <div class="card-content surveylist">
+                    <md-list-item class="ListItem" class="noright">
+
+                        <p>{{row.description}}</p>
+                        <md-divider></md-divider>
+                    </md-list-item>
+
+                </div>
+            </div>
+        </div>-->
+
+
+
+
+
+
+        <!--<md-card-actions class="template_icons" layout="row" layout-align="end center">
+
+            <md-button class="md-icon-button" aria-label="Users">
+                <md-icon class="ucount"><img src="mod_EmployeeReview/assets/icons/uicon.png"></md-icon>
+            </md-button><span>9</span>
+            <md-button class="md-icon-button" aria-label="Edit">
+                <md-icon><img src="mod_EmployeeReview/assets/icons/corrector.png"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Active">
+                <md-icon><img src="mod_EmployeeReview/assets/icons/act.png"></md-icon>
+            </md-button>
+        </md-card-actions>
+    </md-card>-->
+
+
+
+
+
+    <!--<md-card class="col-lg-3  cardone col-md-5" ng-repeat="row in surveydata" ng-click="surveydashboard(row)" infinite-scroll-distance='2'>-->
+        <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out" style="width: 100%;">-->
+        <!--<md-divider></md-divider>-->
+        <!--<md-card-title>-->
+            <!--<md-card-title-text>-->
+                <!--<span class="md-headline">{{row.template_name}}</span>-->
+            <!--</md-card-title-text>-->
+        <!--</md-card-title>-->
+        <!--<md-card-content>-->
+            <!--<p>-->
+                <!--{{row.description}}-->
+            <!--</p>-->
+
+
+        <!--</md-card-content>-->
+        <!--<md-card-actions layout="row" layout-align="end center">-->
+            <!--<md-button class="md-raised md-primary col-xs-3">Active</md-button>-->
+
+        <!--</md-card-actions>-->
+    <!--</md-card>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<ul class="breadcrumb">
+        <li><a class="dashboard" href="/#!/EmployeeReview/admin">Dashboard</a></li>
+
+        <li>Surveys</li>
+    </ul>
+    <md-content layout-padding class="md-whiteframe-1dp">
+        <div id="side_bar" class="clearfix">
+        <h2 style="float: left;">Surveys</h2>
+        <div layout="row" layout-align="end center">
+            <button class="md-fab md-button md-ink-ripple" type="button" ng-click="addSurvey();" style="float: right; position: relative; top: 10px; right: 10px;">
+                <md-icon class="ng-scope" aria-hidden="true">add</md-icon><md-tooltip md-direction="top">Add Survey</md-tooltip>
+                <div class="md-ripple-container"></div>
+            </button>
+        </div>
+
+        </div>
+
+    </md-content>
+    <md-content layout="column" flex>
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column ng-repeat="column in autocolumn" md-order-by="{{column.name}}">
+                        <span>{{column.display}}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="row in datatable.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <td md-cell>{{row.name}}
+
+                    </td>
+                    <td md-cell>{{row.description}}</td>
+                    <td md-cell >{{row.template_name}}</td>           &lt;!&ndash;ng-click="showTemplate(row.template_name)"&ndash;&gt;
+                    &lt;!&ndash;<td md-cell>
+                        <md-icon ng-if="row.status" aria-label="View Members" class="md-secondary md-hue-3">check_circle</md-icon>
+                        <md-icon ng-if="!row.status" aria-label="View Members" class="md-secondary md-hue-3">remove_circle</md-icon>
+                    </td>&ndash;&gt;
+                    <td md-cell>
+                       &lt;!&ndash; <md-icon ng-if="row.status"  ng-click="showAssignPage(row.id)" aria-label="View Members" class="md-primary md-hue-3">people<md-tooltip md-direction="top">Assign Survey</md-tooltip></md-icon>&ndash;&gt;
+                      &lt;!&ndash;  <md-icon ng-if="!row.status"  aria-label="View Members" class="md-hue-3">people</md-icon>&ndash;&gt;
+                        <md-icon ng-click="editSurvey(row.id)" aria-label="Edit Company" class="md-primary md-hue-3">mode_edit<md-tooltip md-direction="top">Update</md-tooltip></md-icon>
+                      &lt;!&ndash;  <md-icon ng-click="assignListPage(row.id)" aria-label="view reviews" class="md-primary md-hue-3">keyboard_arrow_right<md-tooltip md-direction="top"> Review(s)</md-tooltip></md-icon>&ndash;&gt;
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+  &lt;!&ndash;<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{datatable.count}}" md-page-select="options.pageSelect"></md-table-pagination>
+   &ndash;&gt; </md-content>-->
+</section>
+
+<style>
+md-content{
+    overflow: visible;
+}
+    md-table-container{
+        margin-top: 40px;
+    }
+
+.form-control{
+    height: 38px;
+}
+    /*::-webkit-input-placeholder {
+        text-align: center;
+    }
+
+    :-moz-placeholder { !* Firefox 18- *!
+        text-align: center;
+    }
+
+    ::-moz-placeholder {  !* Firefox 19+ *!
+        text-align: center;
+    }
+
+    :-ms-input-placeholder {
+        text-align: center;
+    }
+*/
+
+    ::-webkit-input-placeholder {
+        margin-left: 20px;
+        font-size: 16px;
+    }
+    .label{
+        color: blue;
+        font-size: 18px;
+    }
+md-table-container {
+    margin-top: 20px;
+}
+    .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab{
+        color: white;
+        padding: 2px;
+        width: 14%;
+        font-family: sans-serif;
+        font-size: 16px;
+        background-color: #48b448;
+    }
+
+    table.md-table td.md-cell{
+        font-size: 16px;
+    }
+table.md-table thead.md-head>tr.md-row{
+    height: 19px;
+}
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+    .cardstyle{
+        margin-left: 3%;
+        width: 29%;
+    }
+    .md-button.md-raised:not([disabled]) {
+         box-shadow:none;
+    }
+    /*#6B787F*/
+    th {
+       padding-left: 15px;
+        font-size: 18px;
+        color: #fff;
+        border-right: 1px solid #fff;
+        background-color:#6B787F;
+    }
+
+    table.md-table td.md-cell>*, table.md-table th.md-column>* {
+        vertical-align: middle;
+        color: #fff;
+        font-size: 18px;
+        padding-left: 15px;
+        font-family: sans-serif;
+    }
+table.md-table th.md-column>* {
+    margin-left: 15px;
+}
+    .cardone{
+        margin-left: 40px;
+        margin-left: 60px !important;
+        margin-bottom: 30px !important;
+    }
+
+table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child{
+    padding-left:12px;
+}
+.md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised:not([disabled]):hover, .md-button.md-default-theme.md-primary.md-fab:not([disabled]):hover, .md-button.md-primary.md-fab:not([disabled]):hover {
+    background-color: #48b448;
+}
+th{
+    padding:5px !important;
+}
+    md-card > img{
+        height: 150px !important;
+    }
+
+    .template_name{
+        height:30px !important;
+        overflow: hidden;
+    }
+
+    .template_desc{
+        height:60px !important;
+        overflow: hidden;
+    }
+
+    .label {
+        color:rgb(3,169,244);
+        font-size: 18px;
+    }
+
+md-card{
+    box-shadow: none;
+}
+
+
+    .card-header{
+        padding: 8px;
+        color: #838383;
+        background-color: #fcfcff;
+        border-bottom: 2px solid #eceff1;
+    }
+
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        right: 25px;
+        margin-top: -10px;
+    }
+    table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child{
+        padding: 0;
+        padding-top: 17px;
+        padding-bottom: 17px;
+        padding-left: 32px;
+        padding-right: 0px;
+    }
+
+    .createsurv{
+        padding-right: 8px !important;
+    }
+
+
+    /*.label{
+        color: blue;
+        font-size: 18px;
+    }
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }*/
+
+</style>
+
+       <!-- <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{datatable.count}}" md-page-select="options.pageSelect"></md-table-pagination>-->
+
+
+

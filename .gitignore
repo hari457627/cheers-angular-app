@@ -1,0 +1,12 @@
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.idea
+.tmp
+.DS_Store
+npm-debug.log
+*.swp
+.idea
+PhantomJS*
+client/assets/css/appStyles.css

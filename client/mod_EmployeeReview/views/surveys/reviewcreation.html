@@ -1,0 +1,74 @@
+<div ng-controller="EventController" layout="column" ng-cloak>
+
+    <md-content layout-padding>
+        <form name="projectForm">
+            <div layout="row">
+            <md-input-container flex="20">
+
+                <label>Review Type</label>
+            </md-input-container>
+            <md-input-container flex="50">
+                <input  required md-no-asterisk name="description"  placeholder="Event" >
+
+            </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex="20">
+
+                    <label>Review Id</label>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <input  required md-no-asterisk name="description"  placeholder="Event Id" >
+
+                </md-input-container>
+            </div>
+            <div layout="row">
+
+                <md-input-container flex="20">
+                    <label>Review Type</label>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <md-select name="type" ng-model="project.type" required>
+                        <md-option value="app" selected="true" >All</md-option>
+                        <md-option value="web">Assign</md-option>
+                    </md-select>
+                </md-input-container>
+
+            </div>
+
+
+            <div layout="row">
+
+                <md-input-container flex="20">
+                    <label>Survey Type</label>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <md-select name="type" ng-model="project.type" required>
+                        <md-option value="app" selected="true" >All</md-option>
+                        <md-option value="web">wavelabs</md-option>
+                    </md-select>
+                </md-input-container>
+
+            </div>
+
+
+
+            <div>
+                <md-button type="submit" class="md-raised md-primary col-xs-1" ng-click="sharelink();">Done</md-button>
+            </div>
+
+
+        </form>
+    </md-content>
+
+</div>
+
+<style>
+    .inputdemoErrors .inputErrorsApp {
+        min-height: 48px; }
+
+    .inputdemoErrors md-input-container > p {
+        font-size: 0.8em;
+        text-align: left;
+        width: 100%; }
+</style>

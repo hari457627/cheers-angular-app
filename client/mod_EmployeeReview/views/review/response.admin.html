@@ -1,0 +1,41 @@
+<section ng-controller="ReviewResponseCtrl" layout-padding ng-cloak>
+    <md-card>
+        <md-card-header>
+            <md-icon  class="erBackButtonIcon erBlueColor" ng-click="backButton()">navigate_before</md-icon>
+            <md-card-avatar>
+                <img src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!review.reviewee.photo_url"/>
+                <img src={{review.reviewee.photo_url}} ng-show="review.reviewee.photo_url"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">{{review.reviewee.name}}</span>
+                <span class="md-subhead"><small class="md-caption" ng-if="review.submitted_on"> {{review.reviewer.name}} from {{review.reviewer.customer.name}} replied to <b>{{review.survey.name}}</b> * {{review.submitted_on | date: 'mediumDate'}}</small></span>
+            </md-card-header-text>
+
+        </md-card-header>
+        <md-divider></md-divider>
+        <md-card-content class="erMarginLeft">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="card">
+                        <div class="card-content" ng-repeat="obj in myChartObject">
+                            <h4 class="title">{{obj.title}}</h4>
+                            <div google-chart chart="obj" style="height:400px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div ng-repeat="answer in answers">
+               <h3 class="md-title">{{ $index +1}}. {{answer.question_title}}</h3>
+                <md-subhead > {{answer.text}}</md-subhead>
+            </div>-->
+        </md-card-content>
+    </md-card>
+           <md-card>
+               <md-card-content>
+               <div google-chart chart="empChart"></div>
+               </md-card-content>
+           </md-card>
+</section>
+<style>
+</style>

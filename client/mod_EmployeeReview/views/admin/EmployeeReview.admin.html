@@ -1,0 +1,424 @@
+<section ng-controller="EmployeeReviewAdminCtrl" layout-padding ng-cloak>
+    <ul class="breadcrumb">
+        <li ng-if="!customer.name" class="dashboard">Employee Dashboard</li>
+        <li ng-if="customer.name"><a class="dashboard" href="/#!/EmployeeReview/admin">Employee Dashboard</a></li>
+        <li ng-if="customer.name">{{customer.name}}</li>
+    </ul>
+
+    <div class="row">
+
+        <!--<div class="col-lg-12 col-md-12 carousel_pics">-->
+            <!--<ul rn-carousel rn-carousel-auto-slide rn-carousel-pause-on-hover rn-carousel-index="carouselIndex">-->
+                <!--<li class="card" ng-repeat="obj in myChartObject">-->
+                    <!--<div class="card-header" >-->
+                        <!--<h3 class="">{{obj.title}}</h3>-->
+                    <!--</div>-->
+
+
+
+                   <!--<div id="chart_wrap">-->
+                       <!--<div class="centro_total">-->
+                           <!--<div class="alinhar_middle estilo_total"><br/>-->
+
+                           <!--</div>-->
+                       <!--</div>-->
+
+                        <!--<div class="carousel-content" google-chart chart="obj" style="height:370px; "></div>-->
+
+                   <!--</div>-->
+
+
+
+
+                <!--</li>-->
+
+            <!--</ul>-->
+            <!--<div rn-carousel-indicators ng-if="myChartObject.length > 1" slides="myChartObject" rn-carousel-index="carouselIndex"></div>-->
+        <!--</div>-->
+
+        <div class="col-lg-12 col-md-12 carousel_pics">
+
+            <md-card ng-show="isDatapresent">
+
+                <md-card-content>
+                    <md-table-container>
+                        <table md-table >
+                            <thead md-head >
+                            <tr md-row >
+
+                                <th>
+
+                                </th>
+                                <th style="text-align: center;" ng-repeat="row in tableHeadings">
+                                    {{row}}
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <!--<tr md-row ng-repeat="row in datatable.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">-->
+                            <tr ng-repeat="row in tableData">
+
+                                <td md-cell >{{row.question_title}}</td>
+                                <td md-cell style="text-align: center;"><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Excellent'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Good'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Satisfactory'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Unsatisfactory'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;"><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Can\'t rate'">{{answers.percentage}}</strong>
+
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                </md-card-content>
+
+            </md-card>
+
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <div class="card-header">
+
+                    <h4 class="title">Completed Reviews &nbsp; <span>(<b>{{submittedReviews.length}}</b>)</span></h4>
+
+
+                </div>
+                <div class="card-content">
+                    <md-list-item ng-repeat="sReview in submittedReviews"  ng-click="showEmpDetails(sReview.reviewee)">
+                        <img ng-src={{sReview.reviewee.photo_url}} ng-show="sReview.reviewee.photo_url"
+                             class="md-avatar"/>
+                        <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!sReview.reviewee.photo_url"
+                             class="md-avatar" />
+                        <div class="md-list-item-text" style="line-height:15px;padding-bottom: 13px;">
+                            <centered>
+                                <h4>{{sReview.reviewee.name}}</h4>
+                                <small class="md-caption">{{sReview.reviewer.name}} from Savingstar replied to {{sReview.survey.name}} on {{sReview.submitted_on|date : "dd-MM-y HH:mm:ss"}}</small>
+                            </centered>
+                        </div>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card" >
+                <div class="card-header" >
+
+                    <h4 class="title">Pending Reviews &nbsp; <span>(<b>{{pendingReviews.length}}</b>)</span></h4>
+
+                </div>
+                <div class="card-content">
+                    <md-list-item ng-repeat="pReview in pendingReviews"  ng-click="showEmpDetails(pReview.reviewee)">
+                        <img ng-src={{pReview.reviewee.photo_url}} ng-show="pReview.reviewee.photo_url"
+                             class="md-avatar"/>
+                        <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!pReview.reviewee.photo_url"
+                             class="md-avatar" />
+                        <div class="md-list-item-text" style="line-height:15px;padding-bottom: 13px">
+                            <centered>
+                                <h4>{{pReview.reviewee.name}}</h4>
+                                <small class="md-caption">waiting on {{pReview.reviewer.name}} to reply on {{pReview.survey.name}}</small>
+                            </centered>
+                        </div>
+                        <md-divider ng-if="!$last" style="padding-left:15px;"></md-divider>
+                    </md-list-item>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title" style="display: inline-block">
+                        List of employees
+                    </h4>
+                    <span style="display: inline-block"><md-button class="md-raised md-primary erbtn" ng-click="assignSurveyToEmployees()" ng-disabled = '!reviewees.length >0'>schedule</md-button></span>
+                    <div class="title" style="margin-top: 5px;">
+
+                        <input class="filter-box" ng-model="search.name">
+                    </div>
+                </div>
+                <div class="card-content">
+                    <!--
+                                        <md-list-item class="ListItem" ng-repeat="emp in customerEmployees" ng-click="showEmpDetails(emp)" class="noright">
+                                            <img alt="{{ emp.name.charAt(0) }}" ng-src="{{ emp.photo_url }}" ng-show="emp.photo_url" class="md-avatar" />
+                                            <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!emp.photo_url" class="md-avatar" />
+                                            &lt;!&ndash;<span class="text"><md-tooltip md-direction="middle">Get Information Of Employee</md-tooltip>&ndash;&gt;<p>{{emp.name}} </p>&lt;!&ndash;</span>&ndash;&gt;
+                    -->
+                    <md-list-item class="ListItem" ng-repeat="emp in customerEmployees | filter:search"  ng-click="showEmpDetails(emp)" class="noright">
+                        <img alt="{{ emp.name.charAt(0) }}" ng-src="{{ emp.photo_url }}" ng-show="emp.photo_url" class="md-avatar" />
+                        <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!emp.photo_url" class="md-avatar" />
+                        <p>{{emp.name}}</p> <p class="message">is a message</p>
+
+                        <md-checkbox class="md-secondary"  ng-model="emp.checked" ng-change="addToSelectedEmployees(emp)"></md-checkbox>
+                        <md-divider ng-if="!$last"></md-divider>
+                        <!--   <md-tooltip md-direction="middle">Know More about Employee!!</md-tooltip>-->
+                    </md-list-item>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<style>
+
+    .title{
+    margin-left: 10px;
+    }
+    .card{
+        background-color: white;
+        border-radius: 5px;
+        /*padding:5px;*/
+        height: 395px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    .card-content{
+        height: 340px;
+        overflow: scroll;
+    }
+    .card-header{
+        padding: 8px;
+        color: #838383;
+        background-color: #fcfcff;
+        border-bottom: 2px solid #eceff1;
+    }
+    .erbtn{
+        color: white !important;
+        border-radius: 5px;
+        margin-bottom: -2px;
+    }
+
+    md-list-item._md-button-wrap > div.md-button:first-child{
+        padding-bottom: 10px;
+    }
+
+    .question{
+        color: #838383;
+        padding-left: 20px;
+    }
+
+    .anchor p{
+        position:relative;
+    }
+
+    .ListItem:hover {
+        color:rgb(3,169,244);
+        cursor: pointer;
+        display:block !important;
+        z-index:10;
+
+
+    }
+
+
+    .google-visualization-tooltip{
+        z-index: 1000;
+    }
+    .card-header {
+        padding: 8px;
+        color: #838383;
+    }
+
+
+    .message{
+        display:none;
+        color:#000;
+        background:#999;
+        position:absolute;
+        top:10px;
+    }
+
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+
+    h3::first-letter {
+        text-transform:capitalize;
+    }
+
+    .dashboard a:hover{
+        color:rgb(3,169,244);
+        text-decoration: none;
+    }
+
+    .text{
+        text-align: right;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        margin-left: 8px;
+        font-weight: bold;
+        font-size: 14px;
+        text-align: right;
+        line-height: 1.2em;
+        position: relative;
+        z-index: 1;
+    }
+
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+    border:0!important;
+    }
+
+
+    .carousel_pics ul {
+        height:395px;
+        overflow: hidden;
+    }
+    md-content{
+        overflow-x: hidden;
+    }
+
+    img.alignLeft {
+        float: left;
+    }
+
+    div.rn-carousel-indicator{
+
+        font-size: 30px;
+        text-shadow: -1px 0 #385E72, 0 1px #385E72, 1px 0 #385E72, 0 -1px #385E72;
+        text-align: center;
+    }
+    div.rn-carousel-indicator span{
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    div.rn-carousel-indicator span.active{
+        color: #385E72;
+    }
+    .filter-box{
+        -webkit-appearance: textfield;
+        background-color: white;
+        -webkit-rtl-ordering: logical;
+        cursor: text;
+        padding: 1px;
+        border:none !important;
+        border-bottom: 1px solid grey !important;
+
+        color:black;
+    }
+
+    .filter-box:focus{
+        outline: none;
+    }
+
+    #chart_wrap {
+
+        position: relative;
+        padding-bottom: 100%;
+        height: 0;
+        overflow:hidden;
+        background:#fff;
+    }
+
+    .chart_wrap {
+        position: relative;
+        padding-bottom: 100%;
+    }
+    .centro_total {
+        position: absolute;
+        top:7%;
+        left:22%;
+        width: 20%;
+        height: 20%;
+        vertical-align: middle;
+        text-align: center;
+        z-index: 0;
+        background-color: transparent;
+    }
+    .estilo_total {
+        font-size: 22pt;
+        font-weight: normal;
+    }
+
+    .label-total{
+        color : #000;
+    }
+
+    .chart_job {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .alinhar_middle {
+        position: relative;
+        top: 50%;
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        /* etc */
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    /* .text {
+         text-align: right;
+         margin-top: 12px;
+         margin-bottom: 12px;
+         margin-left: 8px;
+         font-size: 14px;
+         text-align: right;
+         line-height: 1.2em;
+         position: relative;
+         z-index: 1;
+     }*/
+
+   /* .my-tooltip-parent {
+        position: relative;
+        z-index: 1;
+    }*/
+
+    .example-container {
+        display: flex;
+        flex-direction: column;
+        max-height: 500px;
+        min-width: 300px;
+    }
+
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
+    }
+
+    table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2){
+        padding: 0 !important;
+
+    }
+
+    table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child{
+        padding: 4px 12px;
+        font-size: 15px;
+        width: 40%;
+    }
+
+    table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child{
+        padding: 0px 0px 0px 0px;
+    }
+
+    tbody > tr{
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    thead > tr > th{
+        width: 10%;
+    }
+
+</style>

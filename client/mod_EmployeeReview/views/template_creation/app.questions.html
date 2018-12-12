@@ -1,0 +1,242 @@
+<section ng-controller="AppCreateQuestsCtrl" class="manage-app-users" layout="column">
+
+    <ul class="breadcrumb">
+        <li><a href="#!/EmployeeReview/questions/createQuestions">Questions</a></li>
+        <li class="dashboard">New</li>
+
+    </ul>
+
+
+    <md-card>
+        <div class="card-content">
+            <form name="createQuest" ng-submit="createquestionlist(createQuest,weightage,weightage1,weightage2,weightage3,weightage4)">
+                <md-card-content>
+                    <md-select ng-model="createQuest.questiontype" placeholder="Choose Your Question Type" flex="30" required>
+                        <md-option value="radios">Radio</md-option>
+                        <md-option value="textarea">Text</md-option>
+                    </md-select>
+                    <div ng-messages="createQuest.questiontype.$error">
+                        <div ng-message="required">This is required!</div>
+                    </div>
+                    <!--<span ng-show="(createQuest.questiontype.$dirty || submitted) && createQuest.questiontype.$error.required">-->
+                    <!--required-->
+                    <!--</span>-->
+                    <md-select ng-model="createQuest.tags"  placeholder="Choose Your Question Category" flex="30" required>
+                        <md-option ng-repeat="row in allTags">{{row}}</md-option>
+                    </md-select>
+                    <div ng-messages="createQuestions.tags.$error">
+                        <div ng-message="required">This is required!</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 col-xs-7" >
+                            <input name="questionBox" class="question_inputs" ng-model="createQuest.question"  placeholder="Enter Your Question" required>
+                            <div ng-messages="createQuestions.question.$error">
+                                <div ng-message="required">This is required!</div>
+                            </div>
+                        </div>
+                    </div>
+                </md-card-content>
+                <md-divider></md-divider>
+                <div ng-show="createQuest.questiontype==='radios'">
+
+                <md-card-content>
+                        <h3>Answer Choices</h3>
+                        <div class="row">
+                                <div class="col-md-7 col-xs-7" >
+                                    <span><small>Select your Answer</small></span>
+                                    <input class="question_inputs" ng-model="createQuest.option1"  placeholder="Enter Your Answer">
+                                    <div ng-messages="createQuest.option1.$error">
+                                        <div ng-message="required">This is required!</div>
+                                    </div>
+                                </div>
+
+
+                            <div class="col-md-offset-1 col-md-2 col-xs-3">
+                                <span><small>Weightage</small></span>
+                                <div class="input-group">
+
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-disabled="weightage===0" ng-click="decrementweightage()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                  <input type="text" ng-model="weightage" class="form-control input-number" value="0" readonly>
+                                  <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default btn-number" ng-disabled="weightage===5" ng-click="incrementweightage()">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-7 col-xs-7" >
+                                <input class="question_inputs" ng-model="createQuest.option2"  placeholder="Enter Your Answer">
+                                <div ng-messages="createQuest.option2.$error">
+                                    <div ng-message="required">This is required!</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-offset-1 col-md-2 col-xs-3">
+
+                                <div class="input-group">
+
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-disabled="weightage1===0" ng-click="decrementweightage1()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                    <input type="text" ng-model="weightage1" class="form-control input-number" value="0" readonly>
+                                    <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default btn-number" ng-disabled="weightage1===5" ng-click="incrementweightage1()">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-7 col-xs-7" >
+                                <input class="question_inputs" ng-model="createQuest.option3"  placeholder="Enter Your Answer">
+                                <div ng-messages="createQuest.option3.$error">
+                                    <div ng-message="required">This is required!</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-offset-1 col-md-2 col-xs-3">
+
+                                <div class="input-group">
+
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-disabled="weightage2===0" ng-click="decrementweightage2()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                    <input type="text" ng-model="weightage2" class="form-control input-number" value="0" readonly>
+                                    <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default btn-number" ng-disabled="weightage2===5" ng-click="incrementweightage2()">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="row">
+
+                        <div class="col-md-7 col-xs-7" >
+                            <input class="question_inputs" ng-model="createQuest.option4"  placeholder="Enter Your Answer">
+                            <div ng-messages="createQuest.option4.$error">
+                                <div ng-message="required">This is required!</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-offset-1 col-md-2 col-xs-3">
+
+                            <div class="input-group">
+
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-disabled="weightage3===0" ng-click="decrementweightage3()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                <input type="text" ng-model="weightage3" class="form-control input-number" value="0" readonly>
+                                <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default btn-number" ng-disabled="weightage3===5" ng-click="incrementweightage3()">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-7 col-xs-7" >
+                            <input class="question_inputs" ng-model="createQuest.option5"  placeholder="Enter Your Answer">
+                            <div ng-messages="createQuest.option5.$error">
+                                <div ng-message="required">This is required!</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-offset-1 col-md-2 col-xs-3">
+
+                            <div class="input-group">
+
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default btn-number" ng-disabled="weightage4===0" ng-click="decrementweightage4()">
+                                          <span class="glyphicon glyphicon-minus"></span>
+                                      </button>
+                                  </span>
+                                <input type="text" ng-model="weightage4" class="form-control input-number" value="0" readonly>
+                                <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default btn-number" ng-disabled="weightage4===5" ng-click="incrementweightage4()">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </md-card-content>
+                <md-divider></md-divider>
+                </div>
+                <div class="row">
+                    <div class="submit-button">
+                        <md-button class="md-raised md-primary" type="submit">Save</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </md-card>
+</section>
+
+
+
+<style>
+    md-select {
+        border: 1px solid #cbcbcb;
+    }
+    input{
+       height: 30px;
+    }
+
+    .question{
+        width: 55%;
+
+        margin-bottom: 30px;
+    }
+    .question_inputs{
+        width: 100%;
+
+        margin-bottom: 30px;
+    }
+    .submit-button{
+        margin-left: 25px;
+    }
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+    md-content{
+        overflow-x:hidden ;
+    }
+    .card-content{
+        margin-left: 30px;
+    }
+
+
+    .md-button.md-raised:not([disabled]) {
+        color: white;
+        box-shadow: none;
+    }
+</style>

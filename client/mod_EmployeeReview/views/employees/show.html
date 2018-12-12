@@ -1,0 +1,318 @@
+<section ng-controller="EmpDetailsCtrl" layout-padding ng-cloak>
+    <ul class="breadcrumb">
+        <li><a class="dashboard" href="/#!/EmployeeReview/admin">Dashboard</a></li>
+        <li ng-if="customer.name" class="dashboard"><a href="/#!/EmployeeReview/adminCustomer/{{customer.id}}" class="dashboard">{{customer.name}}</a></li>
+        <li>{{employee.name}}</li>
+    </ul>
+    <md-card>
+        <md-card-header>
+
+            <md-icon  class="erBackButtonIcon erBlueColor" ng-click="backButton()">navigate_before</md-icon>
+            <md-card-avatar>
+                <img src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!employee.photo_url"/>
+                <img src={{employee.photo_url}} ng-show="employee.photo_url"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">{{employee.name}}</span>
+                <span class="md-subhead"><small class="md-caption" ng-if="employee.designation"> {{employee.designation}}</small></span>
+            </md-card-header-text>
+
+        </md-card-header>
+    </md-card>
+
+    <!--<div class="row">-->
+
+        <!--<div class="col-lg-12 col-md-12">-->
+            <!--<div class="card">-->
+                <!--<div class="card-header" >-->
+                    <!--<h4 class="title">Performance Report</h4>-->
+                <!--</div>-->
+
+                <!--<div class="card-content">-->
+                    <!--<div google-chart chart="empChart"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+    <!--</div>-->
+
+    <div class="row">
+       <!--<div class="col-lg-6 col-md-12" ng-repeat="obj in myChartObject">-->
+            <!--<div class="card" style="overflow: auto" >-->
+                <!--<div class="card-content" >-->
+                    <!--<h4 class="title">{{obj.title}}</h4>-->
+                    <!--<div google-chart chart="obj" style="height:400px;">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+        <div class="col-lg-12 col-md-12 carousel_pics">
+            <!--<ul rn-carousel rn-carousel-auto-slide rn-carousel-pause-on-hover rn-carousel-index="carouselIndex">-->
+                <!--<li class="card" ng-repeat="obj in myChartObject">-->
+                    <!--<div class="card-header" >-->
+                        <!--<h3 class="">{{obj.title}}</h3>-->
+                    <!--</div>-->
+                    <!--<div class="carousel-content" google-chart chart="obj" style="height:370px;">-->
+                    <!--</div>-->
+                <!--</li>-->
+
+            <!--</ul>-->
+            <!--<div rn-carousel-indicators ng-if="myChartObject.length > 1" slides="myChartObject" rn-carousel-index="carouselIndex"></div>-->
+
+            <md-card ng-show="isDatapresent">
+
+                <md-card-content>
+                    <md-table-container>
+                        <table md-table >
+                            <thead md-head >
+                            <tr md-row >
+
+                                <th>
+
+                                </th>
+                                <th style="text-align: center;" ng-repeat="row in tableHeadings">
+                                    {{row}}
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <!--<tr md-row ng-repeat="row in datatable.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">-->
+                            <tr ng-repeat="row in tableData">
+
+                                <td md-cell >{{row.question_title}}</td>
+                                <td md-cell style="text-align: center;"><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Excellent'">{{answers.percentage}} </strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Good'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Satisfactory'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;" ><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Unsatisfactory'">{{answers.percentage}}</strong>
+
+                                </td>
+                                <td md-cell style="text-align: center;"><strong ng-repeat="answers in row.answers" ng-if="answers.text==='Can\'t rate'">{{answers.percentage}}</strong>
+
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                </md-card-content>
+
+            </md-card>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 padding-box">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4 class="title">Completed Reviews &nbsp; <span>(<b>{{submittedReviews.length}}</b>)</span></h4>
+
+
+                    </div>
+                    <div class="card-content">
+                        <md-list-item ng-repeat="sReview in submittedReviews"  >
+                            <img ng-src={{sReview.reviewee.photo_url}} ng-show="sReview.reviewee.photo_url"
+                                 class="md-avatar"/>
+                            <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!sReview.reviewee.photo_url"
+                                 class="md-avatar" />
+                            <div class="md-list-item-text" style="line-height:15px;padding-bottom: 13px;">
+                                <centered>
+                                    <h4>{{sReview.reviewee.name}}</h4>
+                                    <small class="md-caption">{{sReview.reviewer.name}} from Savingstar replied to {{sReview.survey.name}} on {{sReview.submitted_on|date : "dd-MM-y HH:mm:ss"}}</small>
+                                </centered>
+                            </div>
+                            <md-divider ng-if="!$last"></md-divider>
+                        </md-list-item>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 padding-box">
+                <div class="card" >
+                    <div class="card-header" >
+
+                        <h4 class="title">Pending Reviews &nbsp; <span>(<b>{{pendingReviews.length}}</b>)</span></h4>
+
+                    </div>
+                    <div class="card-content">
+                        <md-list-item ng-repeat="pReview in pendingReviews"  >
+                            <img ng-src={{pReview.reviewee.photo_url}} ng-show="pReview.reviewee.photo_url"
+                                 class="md-avatar"/>
+                            <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!pReview.reviewee.photo_url"
+                                 class="md-avatar" />
+                            <div class="md-list-item-text" style="line-height:15px;padding-bottom: 13px">
+                                <centered>
+                                    <h4>{{pReview.reviewee.name}}</h4>
+                                    <small class="md-caption">waiting on {{pReview.reviewer.name}} to reply on {{pReview.survey.name}}</small>
+                                </centered>
+                            </div>
+                            <md-divider ng-if="!$last" style="padding-left:15px;"></md-divider>
+                        </md-list-item>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 padding-box">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="title">
+                            List
+                        </h4>
+                    </div>
+                    <div class="card-content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+<style>
+    .card{
+        background-color: white;
+        border-radius: 5px;
+        /*padding:5px;*/
+        height: 395px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+    .card-content{
+        height: 340px;
+    }
+    md-card{
+        box-shadow: none;
+    }
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+    .card-header{
+        padding: 8px;
+        color: #838383;
+        background-color: #fcfcff;
+        border-bottom: 2px solid #eceff1;
+    }
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+
+    h3::first-letter {
+        text-transform:capitalize;
+    }
+    /*.dashboard{
+        color:rgb(3,169,244);
+    }
+
+    .dashboard a:hover{
+        color:rgb(3,169,244);
+    }
+
+
+
+    /*.dashboard{
+        color:rgb(3,169,244);
+    }
+
+    .dashboard a:hover{
+        color:rgb(3,169,244);
+    }
+
+    !*.google-chart chart{
+    float: left;
+    }*!*/
+
+    .dashboard a:hover{
+        color:rgb(3,169,244);
+        text-decoration: none;
+
+    }
+
+
+
+
+
+    .carousel_pics ul {
+        height:395px;
+        overflow: hidden;
+    }
+    .carousel_pics li{
+        overflow-y: visible;
+    }
+
+    img.alignLeft {
+        float: left;
+    }
+
+    div.rn-carousel-indicator{
+
+        font-size: 30px;
+        text-shadow: -1px 0 #385E72, 0 1px #385E72, 1px 0 #385E72, 0 -1px #385E72;
+        text-align: center;
+    }
+    div.rn-carousel-indicator span{
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    div.rn-carousel-indicator span.active{
+        color: #385E72;
+    }
+
+    .padding-box{
+     padding-left: 10px;
+        padding-right: 0;
+
+    }
+
+    table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2){
+        padding: 0 !important;
+
+    }
+
+    table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child{
+        padding: 4px 12px;
+        font-size: 15px;
+        width: 40%;
+    }
+
+    table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child{
+        padding: 0px 0px 0px 0px;
+    }
+
+    tbody > tr{
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    thead > tr > th{
+        width: 10%;
+    }
+    md-content{
+        overflow-x: hidden;
+    }
+
+</style>

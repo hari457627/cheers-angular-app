@@ -1,0 +1,41 @@
+<div class="col-md-8 col-md-offset-2">
+    <h1 class="text-center"  >{{review.survey.name}} </h1>
+    <div class="well well-lg myform">
+
+        <h4 ng-if="!isSurveyed">Welcome {{reviewer_name}}</h4>
+        <h2 ng-if="!isSurveyed">Say Cheers to {{reviewee_name | uppercase}}.</h2>
+
+        <h2 ng-if="isSurveyed">Survey is already Reviewed!!!</h2>
+        <form sf-validation-on-blur="true" name='myform' sf-schema="schema" sf-form="form" sf-model="model" ng-submit="submitForm(myform,modelData)">
+        </form>
+    </div>
+</div>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Sniglet|Raleway:800);
+
+.myform{
+    background:white;
+}
+    body, html{
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        font-family: 'Sniglet', cursive;
+    }
+    .myform label.control-label {
+        font-weight:400;
+        color:purple
+    }
+    h1{
+        font-weight: normal;
+        font-size: 2em;
+        font-family: 'Raleway', sans-serif;
+        margin: 0 auto;
+        margin-top: 30px;
+        width: 500px;
+        color: #F90;
+        text-align: center;
+
+    }
+</style>

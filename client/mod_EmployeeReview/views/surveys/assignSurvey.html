@@ -1,0 +1,150 @@
+
+<div ng-controller="SurveyAssignCtrl"  ng-cloak class="md-inline-form" style="padding:5px;">
+    <ul class="breadcrumb">
+        <li><a class="dashboard" href="/#!/EmployeeReview/admin">Dashboard</a></li>
+        <li ng-if="customer.name" class="dashboard"><a href="/#!/EmployeeReview/adminCustomer/{{selectedCustomerId}}" class="dashboard" >{{customer.name}}</a></li>
+        <li>Review Segment</li>
+    </ul>
+    <div class="row" class="layout_align" >
+        <div class="col-lg-6 col-md-12">
+            <md-card >
+                <md-card-title>
+                    <md-card-title-text layout-align="center center">
+                        <span class="md-headline">Feedback Request Form</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <form name="userForm" novalidate>
+                        <div layout="column">
+                            <div>
+                                <h4> Review For  </h4>
+                                <div ng-repeat="reviewee in reviewees" ng-model="survey.reviewee_ids" style="float: left;text-align: center;" >
+                                    <md-list-item  class="noright">
+                                        <img alt="{{ emp.name.charAt(0) }}" ng-src="{{reviewee.photo_url}}" ng-show="reviewee.photo_url" class="md-avatar"  />
+                                        <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!reviewee.photo_url" class="md-avatar" />
+                                    </md-list-item>
+                                    <p style="text-align: center;margin-right: 12px">{{reviewee.name}}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>Choose the Reviewer:</h4>
+                                <!--<label>Choose the reviewer</label>-->
+                                <md-autocomplete required
+                                                 md-input-name="autocompleteField"
+                                                 ng-disabled="ctrl.isDisabled"
+                                                 md-no-cache="ctrl.noCache"
+                                                 md-search-text="formObject.searchText"
+                                                 md-selected-item="formObject.reviewer"
+                                                 md-search-text-change="formObject.searchTextChange(formObject.searchText)"
+                                                 md-selected-item-change="formObject.selectedItemChange(item)"
+                                                 md-items="item in querySearch(formObject.searchText)"
+                                                 md-item-text="item.name"
+                                                 md-min-length="0"
+                                                 placeholder="Select an Reviewer"
+                                                 md-menu-class="autocomplete-custom-template">
+                                    <md-item-template>
+                      <span class="item-title">
+                        <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+                        <span> {{item.name}} </span>
+                      </span>
+                                        <span class="item-metadata">
+                        <span>
+                          <strong>{{item.email}}</strong>
+                        </span>
+                      </span>
+                                    </md-item-template>
+                                    <div class="errors" ng-messages="userForm.autocompleteField.$error" ng-if="userForm.autocompleteField.$touched || userForm.autocompleteField.$dirty">
+                                        <div ng-message="required">Please select </div>
+                                        <div ng-message="server">{{ errors.name }}</div>
+                                    </div>
+                                </md-autocomplete>
+
+                                <div layout-gt-sm="row" ng-show="false">
+                                    <md-input-container class="md-block">
+                                        <label>Reviewer</label>
+                                        <md-select ng-model="survey.contacts" placeholder="Select a Reviewer">
+                                            <md-option ng-value="opt.id" ng-repeat="opt in customerContacts">{{ opt.name }}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <h4>Choose the Review Form:</h4>
+                                <md-input-container class="md-block md-input-invalid">
+                                    <!-- <label>choose the reviewee</label>-->
+                                    <md-select name="select_servey"  ng-model="survey.id"  placeholder="Select a Survey" ng-change="previewTemplate()" required>
+                                        <md-option ng-value="survey.id" ng-repeat="survey in surveys" >{{ survey.name }}</md-option>
+                                    </md-select>
+                                    <div class="errors" ng-messages="userForm.select_servey.$error" ng-if="userForm.select_servey.$touched || userForm.select_servey.$dirty">
+                                        <div ng-message="required">Please Choose the Review  Form </div>
+                                        <div ng-message="server">{{ errors.name }}</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-datepicker ng-model="survey.start_date" md-placeholder="Start date"
+                                               md-min-date="todaysDate" ng-change="survey.end_date = survey.start_date"></md-datepicker>
+
+                                <md-datepicker ng-model="survey.end_date" md-placeholder="End date "
+                                               md-min-date="survey.start_date"></md-datepicker>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                        <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+                                            code.
+                                        </div>
+                                        <div ng-message="md-maxlength" class="my-message">
+                                            Don't use the long version silly...we don't need to be that specific...
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-card-actions layout="row" layout-align="end center" class="layout_align">
+
+                                    <md-button ng-disabled="userForm.$invalid"   ng-click="assignSurvey(true)" class="md-raised md-primary">Publish</md-button>
+                                    <!--<md-button ng-disabled="formSaved" ng-click="assignSurvey(false)" class="md-raised md-primary">Save as Draft</md-button>-->
+
+
+                                    <!--<md-button  ng-click="assignSurvey(false)" class="md-raised md-primary" ng-disabled="userForm.$invalid">Save as Draft</md-button>-->
+
+                                </md-card-actions>
+                            </div>
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <md-card class="layout_align">
+                <md-content layout="column" flex>
+                    <h3>Preview Form: {{templateName}}</h3>
+                    <!--<form sf-schema="schema" sf-form="form" sf-model="model"></form>
+            -->
+                    <form sf-validation-on-blur="true" name='myform' sf-schema="schema" sf-form="form" sf-model="model">
+                    </form>
+                </md-content>
+            </md-card>
+        </div>
+    </div>
+</div>
+<style>
+    .layout_align{
+        padding:20px;
+    }
+    .defaultstyle{
+        color:rgb(3,169,244);
+    }
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+</style>

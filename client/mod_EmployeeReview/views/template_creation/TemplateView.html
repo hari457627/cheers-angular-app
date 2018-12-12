@@ -1,0 +1,252 @@
+<section ng-controller="TemplatesViewCtrl" class="manage-app-users" layout="column">
+
+    <ul class="breadcrumb">
+        <li><a class="dashboard">Templates</a></li>
+        <li>New</li>
+
+    </ul>
+
+    <div class="row" layout-padding ng-cloak>
+
+
+
+        <md-content class="navbar">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="myTabIndex">
+                <md-tab label="Choose Categories">
+                    <md-content class="md-padding autocomplete" layout="column">
+                        <md-contact-chips
+                                ng-model="contacts"
+                                md-contacts="querySearch($query)"
+                                md-contact-name="name"
+                                md-contact-image="image"
+                                md-contact-email="email"
+                                md-require-match="true"
+                                md-highlight-flags="i"
+                                filter-selected="filterSelected"
+                                placeholder="To">
+                        </md-contact-chips>
+
+                        <md-list class="fixedRows">
+                            <md-subheader class="md-no-sticky">Choose atleast one Category</md-subheader>
+                            <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in allContacts"
+                                          ng-if="contacts.indexOf(contact) < 0">
+
+
+                            </md-list-item>
+                            <md-list-item class="md-2-line contact-item selected" ng-repeat="contact in contacts">
+                                <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+                                <div class="md-list-item-text compact">
+                                    <h3>{{contact.name}}</h3>
+
+                                </div>
+                            </md-list-item>
+                        </md-list>
+
+
+
+                    </md-content>
+                </md-tab>
+                <md-tab label="Choose Questions" ng-disabled="secondTab">
+                    <md-content class="md-padding">
+
+                        <div class="col-md-11 col-xs-12">
+                            <table class="col-md-12 col-xs-12">
+                                <thead class="table-head" >
+                                <tr>
+
+                                    <th  class="col-md-2 col-xs-2">
+                                        <span>Select</span>
+                                    </th>
+                                    <th  class="col-md-10 col-xs-10">
+                                        <span>Title</span>
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                <tr ng-repeat="row in allQuestions">
+                                    <td class="col-md-1 col-xs-1" style=" padding-left: 20px; padding-top: 10px;">
+                                        <md-checkbox class="md-primary" ng-model="row.checked" ng-change="addToSelectedQuests(row)" aria-label="checkbox"></md-checkbox>
+                                    </td>
+                                    <td style="padding-left: 20px" class="col-md-11 col-xs-11">{{row.title}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </md-content>
+                </md-tab>
+                <md-tab label="Describe Survey" ng-disabled="thirdTab">
+                    <md-content class="md-padding">
+
+                        <md-content class="md-padding" >
+                            <div class="form-group">
+                                <label>template Name</label>
+                                <input type="text" class="form-control" name="template_name" ng-model="template.name" placeholder="template Name" ng-keyup="fillfields(template.name)">
+                                <span><small style="color: red">{{mymessage1}}</small></span>
+                                <span><small style="color: red">{{mymessage3}}</small></span>
+
+                            </div>
+                            <div class="form-group">
+                                <label>template Description</label>
+                                <textarea class="form-control" rows="5" name="template_desc"  ng-model="template.description" placeholder="template Description" ng-keyup="fillfields1()"></textarea>
+                                <span><small style="color: red">{{mymessage2}}</small></span>
+                            </div>
+                        </md-content>
+
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+
+        <div class="col-md-offset-8 col-xs-offset-8 savebutton">
+            <md-button class="md-raised md-primary" ng-click="savenext(contacts,template)">Save & Next</md-button>
+        </div>
+
+    </div>
+
+
+
+
+
+</section>
+
+
+
+<style>
+
+    .savebutton{
+        position: absolute;
+        top: 9%;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .savebutton {
+            position: absolute;
+            top: 5%;
+        }
+        .navbar{
+            margin-top: 30px;
+        }
+    }
+
+
+    table.md-table td.md-cell{
+        font-size: 16px;
+    }
+    table.md-table thead.md-head>tr.md-row{
+        height: 19px;
+    }
+
+    th {
+
+        font-size: 18px;
+        color: #fff;
+        border-right: 1px solid #fff;
+        background-color:#6B787F;
+    }
+
+    table.md-table td.md-cell>*, table.md-table th.md-column>* {
+        vertical-align: middle;
+        color: #fff;
+        font-size: 18px;
+
+        font-family: sans-serif;
+    }
+
+
+
+    table td, table.md-table th {
+        vertical-align: middle;
+
+    }
+
+
+    table :not(.md-row-select) , table.md-table:not(.md-row-select) {
+
+
+        font-size: 20px;
+
+        padding-right: 0px;
+
+    }
+
+    md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+        background: rgb(3,169,244);
+    }
+
+    .md-button.md-raised:not([disabled]) {
+        color: white;
+        box-shadow: none;
+    }
+
+    md-content{
+        overflow-x: hidden;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .chipsdemoContactChips md-content.autocomplete {
+        min-height: 250px; }
+    .chipsdemoContactChips md-content.autocomplete input {
+        min-width: 400px; }
+
+    .chipsdemoContactChips .md-item-text.compact {
+        padding-top: 8px;
+        padding-bottom: 8px; }
+
+    .chipsdemoContactChips .contact-item {
+        box-sizing: border-box; }
+    .chipsdemoContactChips .contact-item.selected {
+        opacity: 0.5; }
+    .chipsdemoContactChips .contact-item.selected h3 {
+        opacity: 0.5; }
+    .chipsdemoContactChips .contact-item .md-list-item-text {
+        padding: 14px 0;
+        max-width: 190px; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3 {
+        margin: 0 !important;
+        padding: 0;
+        line-height: 1.2em !important; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden; }
+    @media (min-width: 960px) {
+        .chipsdemoContactChips .contact-item {
+            float: left;
+            width: 33%; } }
+
+    .chipsdemoContactChips md-contact-chips {
+        margin-bottom: 10px; }
+
+    .chipsdemoContactChips .md-chips {
+        padding: 5px 0 8px; }
+
+    .chipsdemoContactChips .fixedRows {
+        height: 250px;
+        overflow: hidden; }
+
+
+
+
+
+
+</style>

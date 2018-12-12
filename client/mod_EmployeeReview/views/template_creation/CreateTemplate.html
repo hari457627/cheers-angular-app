@@ -1,0 +1,82 @@
+<section ng-controller="TemplatesListCtrl" class="manage-app-users" layout="column">
+
+    <ul class="breadcrumb">
+        <li><a class="dashboard">Templates</a></li>
+        <li>New</li>
+
+    </ul>
+
+
+
+    <div layout="column" class="layoutPad featurebarTitle" >
+
+
+
+
+
+    </div>
+
+    <div layout="column" class="row layoutPad featurebarTitle" >
+
+
+
+
+        <md-card class="col-md-12" >
+            <div style="margin: auto;">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline"><h1 class="md-title"> How do you want to get started?</h1></span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content class="row buttongrp">
+
+                    <div class="col-md-6 col-xs-12 twobuttons">
+                        <md-button class="md-raised md-primary col-xs-10 col-xs-offset-2" disabled="true">Copy from Existing</md-button>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <md-button class="md-raised md-primary col-xs-10 col-xs-offset-2" ng-click="scratch()">Start from Scratch</md-button>
+                    </div>
+
+
+            </md-card-content>
+            </div>
+        </md-card>
+
+
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+<style>
+
+
+    .buttongrp{
+        margin-top: 20px;
+        margin-bottom: 30px !important;
+    }
+    .md-button.md-raised:not([disabled]) {
+        color: white;
+        box-shadow: none;
+    }
+    md-content{
+        overflow-x: hidden;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .twobuttons{
+            margin-bottom: 20px;
+        }
+    }
+    md-card{
+        box-shadow: none;
+    }
+
+
+</style>

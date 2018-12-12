@@ -1,0 +1,501 @@
+<div layout-padding ng-cloak class="md-inline-form"  ng-controller="FormController">
+    <ul class="breadcrumb">
+        <li><a class="dashboard" href="/#!/EmployeeReview/surveys">My Surveys</a></li>
+        <li>New</li>
+    </ul>
+    <div layout-padding ng-cloak class="md-inline-form" style="margin: 1%;">
+
+        <md-content class="row bodycolour1">
+            <form name="frm"  ng-submit="frm.$valid" novalidate style="width: 100%">
+                <div class="col-lg-offset-7 nextbutton">
+                    <md-input-container ng-class="{'response': labelDisabled3} " style="margin-left: 70%;">
+                        <md-content>
+                            <md-button   ng-click="tabindex(survey)" type="submit" class="md-raised md-primary createstyle">Save & Next</md-button>
+                        </md-content>
+                    </md-input-container>
+
+                </div>
+            </form>
+            <md-tabs class="col-lg-12 col-sm-12 col-xs-12 nav-headers" md-dynamic-height md-border-bottom  style="min-height: 180px;" md-selected="myTabIndex" >
+                <md-tab label="Choose Template"  ng-disabled="labelDisabled3">
+                    <md-content class="md-padding bodycolour1">
+                        <div  class="row col-lg-12  col-md-12">
+
+                            <md-input-container class="col-lg-3 md-input-invalid col-lg-offset-2" style="margin-top: 40px;">
+                                <md-select name="survery_template" ng-model="survey.template_id"  aria-label="Template ID" ng-change="previewTemplate()" placeholder="Choose The Template"  required>
+                                    <md-option ng-repeat="template in templates" ng-click="test(template)" value="{{template.id}}" >
+                                        {{template.name}}
+                                    </md-option>
+                                </md-select>
+                                <span ng-show="frm.$submitted && frm.survery_template.$error"><small style="color: red">{{mymessage}}</small></span>
+                            </md-input-container>
+
+
+
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Design Survey" ng-disabled="labelDisabled">
+                    <md-content class="md-padding" >
+                        <div class="form-group">
+                            <label>Survey Name</label>
+                            <input type="text" class="form-control" name="survey_name" ng-model="survey.name" required ng-keyup='fillfields(survey.name)'>
+                            <span><small style="color: red">{{mymessage1}}</small></span>
+                            <span><small style="color: red">{{mymessage3}}</small></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Survey Description</label>
+                            <textarea class="form-control" rows="5" name="survey_desc"  ng-model="survey.description" placeholder="Survey Description" ng-keyup='fillfields1()' required></textarea>
+                            <span><small style="color: red">{{mymessage2}}</small></span>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Preview" ng-disabled="labelDisabled1">
+                    <md-content class="bodycolour1">
+
+                        <div class="schema-form1">
+
+                            <div class="col-md-12"    style="background:white" >
+                                <div class="row main-content1" >
+                                    <div class="col-sm-3 logo1" layout="row" layout-align="start end">
+                                        <!--<img class="mainlogo" src={{review.tenant_logo_url}} ng-show="review.tenant_logo_url">-->
+                                        <img ng-src="mod_EmployeeReview/assets/icons/Wavelabs-logo.png" class="mainlogo" />
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="headercontent1 col-lg-12 col-sm-12">
+                                        <h2 class="title1 col-md-offset-2">{{survey.name}}</h2>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="well  formMargin1">
+                                        <div>
+                                            <h4 class="col-sm-offset-1"><i>{{survey.description}}</i></h4>
+                                        </div>
+                                        <div class="col-lg-offset-1">
+
+                                            <div class="form-group">
+                                                <label>What is your name?</label>
+                                                <input class="form-control" type="text" disabled >
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label>What is your Email Id?</label>
+                                                <input class="form-control"  type="email" disabled>
+                                            </div>
+
+                                        </div>
+                                        <div class="row main-content1 radiostyles">
+                                            <div class="forms1" style="margin-top: -5px;margin-left: 20px;">
+                                                <form sf-validation-on-blur="true" name='myform' sf-schema="schema" sf-form="form" sf-model="model" ng-disabled="true">
+                                                </form>
+                                                <div>
+                                                    <input type="submit" class="btn btn-info" value="Submit" disabled></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Collect Response" ng-model="responceurl" ng-disabled="labelDisabled2">
+                    <md-content class="md-padding bodycolour1">
+
+
+                        <div class="col-lg-12 col-md-12" style="min-height:500px;">
+
+
+                            <div class="col-lg-offset-1 col-lg-9 input-group" style="margin-top: 100px;">
+                                <input type="text" class="form-control datas" ng-model="textToCopy">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" style="height: 40px; width:50px; margin-top:40px;"clipboard supported="supported" text="textToCopy" on-copied="success()" on-error="fail(err)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-offset-3 col-lg-12">
+                                <md-input-container class="col-xs-1">
+                                    <md-button class="md-fab md-mini" aria-label="Eat cake" ng-href = "https://www.facebook.com/sharer.php?u={{textToCopy|encodeUri }}" title="Facebook share" target="_blank">
+
+                                        <ng-md-icon icon="facebook" size="25"></ng-md-icon>
+                                    </md-button>
+                                </md-input-container>
+
+
+                                <md-input-container class="col-xs-1">
+                                    <md-button class="md-fab md-mini" aria-label="Eat cake" ng-href="https://plus.google.com/share?url={{textToCopy|encodeUri}}" title="Google Plus Share" target="_blank">
+                                        <ng-md-icon icon="hangouts" size="25"></ng-md-icon>
+                                    </md-button>
+                                </md-input-container>
+
+
+
+                                <md-input-container class="col-xs-1">
+                                    <md-button class="md-fab md-mini" aria-label="Eat cake" ng-href="https://twitter.com/share?url={{textToCopy|encodeUri}}&amp;hashtags=simplycheer" title="Twitter share" target="_blank">
+                                        <ng-md-icon icon="twitter" size="25"></ng-md-icon>
+                                    </md-button>
+                                </md-input-container>
+
+                                <md-input-container class="col-xs-1">
+                                    <md-button class="md-fab md-mini" aria-label="Eat cake" ng-href="https://www.linkedin.com/shareArticle?mini=true&url={{textToCopy|encodeUri}}" title="linkedin Share" target="_blank">
+                                        <ng-md-icon icon="linkedin" size="25"></ng-md-icon>
+                                    </md-button>
+                                </md-input-container>
+
+
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+        <div class="row" style="margin-left:20px;margin-right: 60px;" ng-if="survey.template_id && myTabIndex<2" >
+            <div class="bodycontent">
+                <div class=" well well-lg schema-form">
+                    <div class="row main-content ">
+
+                        <div class="form-group">
+                            <label class = "col-lg-6 control-label">What is your name?</label>
+                            <input type="text" class = "form-control" style="width: 80%;height: 40px" disabled>
+
+                        </div>
+                        <div class="form-group">
+                            <label class = "col-lg-6 control-label">What is your Email Id?</label>
+                            <input type="email" class = "form-control" style="width: 80%;height: 40px" disabled>
+                        </div>
+                        <div class="form-group" >
+                            <form sf-validation-on-blur="true" name='myform' sf-schema="schema" sf-form="form" sf-model="model" ng-disabled="true">
+                            </form>
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-info" value="Submit" disabled></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+
+    .radiostyles.radio-inline span, .radio span {
+        font-weight: 500;
+        font-size: 17px;
+        color: black !important;
+    }
+
+    md-content .bodycolour1 {
+        color: rgba(0,0,0,0.87);
+        background-color: #fff;
+        overflow: visible;
+    }
+
+    .schema-form1 {
+        margin: 30px 5%;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+    }
+    .radio{
+        padding-top: 8px;
+    }
+
+
+    .main-content1{
+        padding: 0 8%;
+    }
+    .logo1{
+        max-height: 70px;
+        margin: 20px 3%;
+        width: 180px;
+
+    }
+    .mainlogo img1{
+        margin-left:60px;
+        height: 80px;
+        width: 120px;
+    }
+
+    .headercontent1{
+        height: 90px;
+        background-color: #449dfa;
+        color: #fff;
+        padding: 12px 55px;
+        text-transform: capitalize;
+
+
+    }.headercontent md-input-container label:not(.md-no-float):not(._md-container-ignore), md-input-container ._md-placeholder{
+         margin-left: 70px;
+     }.saved .well {
+          height: 650px;
+          text-align: center;
+      }
+    .formMargin1{
+        margin: 0 12%;
+    }
+
+
+    .main-content1{
+        padding: 0 8%;
+    }
+    .forms1{
+        margin-top: 60px;
+    }
+
+
+    .title1{
+        margin-left:11%;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    .checkdata   {
+        padding-left: 8px !important;
+    }
+
+
+    .tabsdemoDynamicHeight md-content {
+        background-color: transparent !important; }
+    .tabsdemoDynamicHeight md-content md-tabs {
+        background: #f6f6f6;
+        border: 1px solid #e1e1e1; }
+    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+        background: white; }
+    .tabsdemoDynamicHeight md-content h1:first-child {
+        margin-top: 0; }
+
+    md-tabs md-ink-bar {
+        color:rgb(3,169,244);
+        background:rgb(3,169,244);
+    }
+    dashboard{
+        color:rgb(3,169,244);
+    }
+    .headercontent{
+        height: 90px;
+        background-color: #449dfa;
+        padding-top: 8px;
+        color: #fff;
+        margin-top: 40px;
+        text-transform: capitalize;
+
+    }
+    .headstyle .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 0px;
+        padding-left: 0px;}
+    .form-group{
+        width: auto;
+
+    }
+    .desccontent{
+        height: 90px;
+        background-color: blanchedalmond;
+        padding-top: 8px;
+        color: #fff;
+        margin-top: 40px;
+        text-transform: capitalize;
+
+    }
+    .bodycontent{
+        padding: 0 ;
+
+    }
+    .md-button.md-focused {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .main-content{
+
+    }
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+        padding-left:0;
+        padding-right: 0;
+    }
+    .styledefault{
+        margin-left: 60px;
+    }
+    .mainlogo img{
+        margin-left:60px;
+        height: 80px;
+        width: 120px;
+    }
+
+    .form-group > label {
+        font-size:22px;
+        color: black !important;
+    }
+    .radio-inline span, .radio span{
+        font-weight: 500;
+        color: black !important;
+    }
+    md-input-container {
+        margin:10px 10px;
+    }
+    .contain {
+        padding-right: 2%;
+    }
+
+    .surveystyle{
+
+    }
+    .descstyles{
+        margin-top: 10px;
+        background-color: bisque;
+        padding-top: 1px;
+    }
+    md-input-container .md-input {
+        -webkit-order: 2;
+        -ms-flex-order: 2;
+        order: 2;
+        display: block;
+        margin-top: 0;
+        background: none;
+        padding-top: 2px;
+        padding-bottom: 1px;
+        padding-left: 2px;
+        padding-right: 2px;
+
+        line-height: 26px;
+        height: 30px;
+        -ms-flex-preferred-size: 26px;
+        border-radius: 0;
+
+        width: 100%;
+        float: left;
+        border: none;
+    }
+    md-input-container.md-default-theme .md-input, md-input-container .md-input{
+        color: #fff;
+        font-size: 20px;
+    }
+
+    md-input-container .md-input .descstyle{
+        color: #000000;
+    }
+    md-input-container .md-input{
+        color: #fff !important;
+    }
+    md-input-container .textareat{
+        color: #fff;
+    }
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+    .def md-input-container.md-default-theme .md-input, md-input-container .md-input{
+        color: #000 !important;
+    }
+    .headercontent md-input-container label:not(.md-no-float):not(._md-container-ignore), md-input-container ._md-placeholder{
+        margin-left: 70px;
+    }
+    md-card > img, md-card > :not(md-card-content) img{
+        margin-left:60px;
+        height: 80px;
+        width: 120px;
+    }
+    md-content{
+        overflow: visible;
+
+    }
+    md-card{
+        box-shadow: none;
+    }
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+    .rcorners1{
+        background-color: rgb(3,169,244);
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+    }
+    .md-button{
+        margin-top: -20px;
+        margin-right: 0px;
+
+    }
+
+    .nextbutton{
+        position: absolute;
+
+        z-index: 4;
+
+    }
+    md-button.md-primary.md-raised:not([disabled]):hover{
+        background-color: green;
+    }
+
+    .datas{
+        width:80% !important;
+        height:40px !important;
+        margin-left: 80px;
+        margin-top:20px !important;
+        padding: 10px;
+
+
+    }
+    .input-group{
+        margin-bottom: 50px;
+    }
+    .createstyle{
+        margin: 0px 8px !important;
+    }
+    .response{
+        display: none;
+        height: 0px !important;
+        width: 0px !important;
+    }
+    .schema-form{
+        height:400px !important;
+        overflow: scroll;
+    }
+    .btn {
+        margin-top: 20px !important;
+    }
+    .input-group .form-control, .input-group-addon, .input-group-btn{
+        display: block;
+    }
+    .sharelinkbox{
+        margin-top: 80px;
+    }
+
+    .md-button.md-default-theme.md-fab, .md-button.md-fab {
+        background-color: rgb(3, 169, 244);
+    }
+
+    .nav-headers{
+
+    }
+
+    @media screen and (max-width: 768px) and (min-width: 500px) {
+        .nav-headers{
+
+        }
+    }
+
+</style>

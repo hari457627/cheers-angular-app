@@ -1,0 +1,126 @@
+<section ng-controller="QuestionsListCtrl" class="manage-app-users" layout="column">
+
+    <ul class="breadcrumb">
+        <li><a class="dashboard">Templates</a></li>
+
+
+    </ul>
+
+
+    <div class="row user-table ">
+
+        <div class="col-md-11 col-xs-12" >
+            <div class="col-md-2 col-xs-3">
+                <div class="md-title">Questions</div>
+            </div>
+            <div class="col-md-offset-7 col-md-3 col-xs-offset-5">
+                <md-button class="col-md-12 col-xs-12 md-raised md-primary" ng-click="CreateQuestions()">Add Your Questions</md-button>
+            </div>
+        </div>
+
+
+
+        <md-table-container class="col-md-11 col-xs-12">
+            <table md-table class="col-md-12 col-xs-12">
+                <thead md-head >
+                <tr md-row style="padding-left: 40px;">
+
+                    <th md-column class="col-md-2 col-xs-2">
+                        <span>sl. No</span>
+                    </th>
+                    <th md-column class="col-md-10 col-xs-10" style="padding-left: 20px">
+                        <span>Title</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody md-body>
+
+                <tr ng-repeat="row in allQuestions">
+                    <td md-cell class="col-md-1 col-xs-1">{{$index+1}}</td>
+                    <td md-cell style="padding-left: 20px" class="col-md-11 col-xs-11">{{row.title}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+
+
+    </div>
+
+
+</section>
+
+
+
+<style>
+    .user-table{
+
+        margin-bottom: 50px;
+        margin-left: 30px;
+        margin-right: 0px;
+    }
+
+    .md-title{
+        font-size: 36px;
+    }
+    .text-center{
+
+    }
+
+    md-table-container{
+        margin-top: 40px;
+        overflow-x: visible ;
+
+    }
+
+
+
+    table.md-table td.md-cell{
+        font-size: 20px;
+    }
+    table.md-table thead.md-head>tr.md-row{
+        height: 19px;
+    }
+
+    th {
+
+        font-size: 18px;
+        color: #fff;
+        border-right: 1px solid #fff;
+        background-color:#6B787F;
+    }
+
+    table.md-table td.md-cell>*, table.md-table th.md-column>* {
+        vertical-align: middle;
+        color: #fff;
+        font-size: 18px;
+
+        font-family: sans-serif;
+    }
+
+
+
+    table td, table.md-table th {
+        vertical-align: middle;
+
+    }
+
+
+    table :not(.md-row-select) , table.md-table:not(.md-row-select) {
+
+
+        font-size: 20px;
+
+        padding-right: 0px;
+
+    }
+
+
+    .md-button.md-raised:not([disabled]) {
+        color: white;
+        box-shadow: none;
+    }
+
+
+
+</style>

@@ -1,0 +1,76 @@
+<section ng-controller="EmployeeReviewDashboardCtrl" layout-padding
+         ng-cloak>
+
+    <ul class="breadcrumb">
+        <li><a class="dashboard" href="/#!/EmployeeReview/admin">Dashboard</a></li>
+        <li>Bulk Survey</li>
+    </ul>
+
+
+
+    <h1>Welcome to the Application</h1>
+
+    <!-- <md-content layout-padding class="md-whiteframe-1dp">
+         <div id="side_bar" class="clearfix">
+             <h2 style="float: left;">Surveys</h2>
+             <div layout="row" layout-align="end center">
+                 <button class="md-fab md-button md-ink-ripple" type="button" ng-click="addSurvey();" style="float: right; position: relative; top: 10px; right: 10px;">
+                     <md-icon class="ng-scope" aria-hidden="true">add</md-icon><md-tooltip md-direction="top">Add Survey</md-tooltip>
+                     <div class="md-ripple-container"></div>
+                 </button>
+             </div>
+
+         </div>
+
+     </md-content>
+     <md-content layout="column" flex>
+         <md-table-container>
+             <table md-table>
+                 <thead md-head md-order="query.order">
+                 <tr md-row>
+                     <th md-column ng-repeat="column in autocolumn" md-order-by="{{column.name}}">
+                         <span>{{column.display}}</span>
+                     </th>
+                 </tr>
+                 </thead>
+                 <tbody md-body>
+                 <tr md-row ng-repeat="row in datatable.data | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                     <td md-cell>{{row.name}}
+
+                     </td>
+                     <td md-cell>{{row.description}}</td>
+                     <td md-cell >{{row.template_name}}</td>           &lt;!&ndash;ng-click="showTemplate(row.template_name)"&ndash;&gt;
+                     &lt;!&ndash;<td md-cell>
+                         <md-icon ng-if="row.status" aria-label="View Members" class="md-secondary md-hue-3">check_circle</md-icon>
+                         <md-icon ng-if="!row.status" aria-label="View Members" class="md-secondary md-hue-3">remove_circle</md-icon>
+                     </td>&ndash;&gt;
+                     <td md-cell>
+                         &lt;!&ndash; <md-icon ng-if="row.status"  ng-click="showAssignPage(row.id)" aria-label="View Members" class="md-primary md-hue-3">people<md-tooltip md-direction="top">Assign Survey</md-tooltip></md-icon>&ndash;&gt;
+                         &lt;!&ndash;  <md-icon ng-if="!row.status"  aria-label="View Members" class="md-hue-3">people</md-icon>&ndash;&gt;
+                         <md-icon ng-click="editSurvey(row.id)" aria-label="Edit Company" class="md-primary md-hue-3">mode_edit<md-tooltip md-direction="top">Update</md-tooltip></md-icon>
+                         &lt;!&ndash;  <md-icon ng-click="assignListPage(row.id)" aria-label="view reviews" class="md-primary md-hue-3">keyboard_arrow_right<md-tooltip md-direction="top"> Review(s)</md-tooltip></md-icon>&ndash;&gt;
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+         </md-table-container>
+         &lt;!&ndash;<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{datatable.count}}" md-page-select="options.pageSelect"></md-table-pagination>
+     &ndash;&gt; </md-content>-->
+</section>
+
+<style>
+    .label{
+        color: blue;
+        font-size: 18px;
+    }
+    a:hover, a:visited, a:link, a:active
+    {
+        text-decoration: none;
+        border:0!important;
+    }
+
+    .dashboard{
+        color:rgb(3,169,244);
+    }
+
+</style>

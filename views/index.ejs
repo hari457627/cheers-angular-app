@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K3FSTVZ');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <title>Simply Cheer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <!-- Bower Stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+
+    <link rel="stylesheet" href="bower_components/angular-sanitize/angular-sanitize.min.css">
+    <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.min.css">
+
+    <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' type='text/css' media='all'/>
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+    <link href="bower_components/angular-material-icons/angular-material-icons.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/appStyles.css">
+
+
+    <meta name="google-signin-clientid" content="504012731896-rerpg50s2kgra2u0qcsvt59pvmcmetlk.apps.googleusercontent.com" />
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login email" />
+    <meta name="google-signin-requestvisibleactions" content="http://schema.org/AddAction" />
+    <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+
+
+    <!-- App Styles -->
+    <!--<link rel="stylesheet" href="mod_idn/assets/css/styles.css">-->
+    <!--<link rel="stylesheet" href="assets/css/appStyles.css">-->
+
+    <!-- favicon -->
+
+
+</head>
+<body ng-app="clientApp" layout="column" flex>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3FSTVZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="subDomain" hide><%= subDomain %></div>
+<div id="ENV" hide><%= ENV %></div>
+<div id="appName" hide></div>
+
+
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+
+<div ui-view ng-controller="AppCtrl" layout="cloumn" flex></div>
+
+
+<script>
+    (function () {
+        /*
+         vrathore: The angular material seems to look a little too big. Untill srikanth reduces the size for it all,
+         */
+        //document.body.style.zoom = "90%";
+    })();
+</script>
+
+<!-- ANGULARJS Libraries-->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<!--Cookies-->
+<!--<script src="bower_components/angular-cookie/angular-cookie.min.js"></script>-->
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<!-- angular material requirements-->
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+
+
+
+<script src="bower_components/ng-flow/dist/ng-flow-standalone.min.js"></script>
+
+<script src="bower_components/ng-flow/dist/ng-flow.min.js"></script>
+
+<script src="bower_components/flow.js/dist/flow.min.js"></script>
+
+
+<script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+
+<script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+
+
+
+
+<!-- data table -->
+<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+
+<!--loading bar-->
+<script type='text/javascript' src='bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
+<!--underscore-->
+<script src="bower_components/underscore/underscore.js"></script>
+
+<!--file Upload-->
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+
+<!-- Charts dashboard -->
+<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+<script src="bower_components/angular-google-chart/ng-google-chart.min.js"></script>
+
+
+
+
+
+<script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+<script type="text/javascript" src="bower_components/angular-touch/angular-touch.js"></script>
+
+
+<script src="bower_components/ngclipboard/dist/ngclipboard.js"></script>
+
+<script src="bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
+
+
+<script src="bower_components/angular-clipboard/angular-clipboard.js"></script>
+
+
+<script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+
+
+<script src="bower_components/angular-encode-uri/dist/angular-encode-uri.min.js"></script>
+
+
+<!-- APP -->
+<script src="client.js"></script>
+
+<!-- CONFIGURATIONS LEVEL -->
+<!-- config -->
+<script src="app_config/app.config.js"></script>
+<script src="app_config/main/app.service.js"></script>
+<script src="app_config/main/app.ctrl.js"></script>
+<!-- layout -->
+<script src="app_config/layout/app.layout.js"></script>
+<script src="app_config/layout/layoutCtrl.js"></script>
+<script src="app_config/layout/layoutService.js"></script>
+<!-- theme -->
+<script src="app_config/theme/app.theme.js"></script>
+<!--primaryPage-->
+<script src="app_config/firstPage/firstPageCtrl.js"></script>
+<!-- common -->
+<script src="app_config/common/stateService.js"></script>
+
+
+<!-- MODULE NBOS -->
+<script src="mod_nbos/mod.nbos.js"></script>
+<!-- alert component -->
+<script src="mod_nbos/alert/alertService.js"></script>
+
+<!-- MODULE IDN -->
+<script src="mod_idn/mod.idn.js"></script>
+<!-- mod_IDN -->
+<script src="mod_idn/scripts/idnConstants.js"></script>
+
+
+<!-- SERVICES -->
+<script src="mod_idn/scripts/services/SessionService.js"></script>
+<script src="mod_idn/views/dashboard/RolesService.js"></script>
+<script src="mod_idn/views/dashboard/UserService.js"></script>
+<script src="mod_idn/scripts/services/shared/alertService.js"></script>
+<script src="mod_idn/scripts/services/registration/registerService.js"></script>
+<script src="mod_idn/scripts/services/registration/loginService.js"></script>
+
+
+<!-- CONTROLLERS -->
+<script src="mod_idn/views/dashboard/idn.dashboardCtrl.js"></script>
+<script src="mod_idn/views/header/idn.loginHeaderCtrl.js"></script>
+<script src="mod_idn/scripts/controllers/registration/loginCtrl.js"></script>
+<script src="mod_idn/scripts/controllers/registration/registerCtrl.js"></script>
+<script src="mod_idn/scripts/controllers/registration/registerSuccessCtrl.js"></script>
+<script src="mod_idn/views/menu/idn.headerCtrl.js"></script>
+<script src="mod_idn/views/menu/idn.navCtrl.js"></script>
+<script src="mod_idn/views/profile/idn.profileCtrl.js"></script>
+<script src="mod_idn/views/settings/idn.settingsCtrl.js"></script>
+
+<!-- SOCIAL LOGIN -->
+<script src="mod_idn/scripts/services/social/SocialLoginService.js"></script>
+<script src="mod_idn/scripts/services/social/FBService.js"></script>
+<script src="mod_idn/scripts/services/social/GoogleService.js"></script>
+<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+
+<script src="bower_components/tv4/tv4.js" charset="utf-8"></script>
+<script src="bower_components/angular-schema-form/dist/schema-form.js" charset="utf-8"></script>
+<script src="bower_components/objectpath/lib/ObjectPath.js"></script>
+<script type="text/javascript" src="bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<!-- YOUR APP-->
+<script src="mod_EmployeeReview/mod.EmployeeReview.js"></script>
+ <script src="mod_EmployeeReview/views/dashboard/EmployeeReview.dashboardCtrl.js"></script>
+<script src="mod_EmployeeReview/views/menu/EmployeeReview.headerCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/Assign.adminCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/ReviewDisplay.userCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/AssignmentsList.adminCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/ReviewResponse.adminCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/EmpDetails.adminCtrl.js"></script>
+<script src="mod_EmployeeReview/views/admin/EmployeeReview.adminCtrl.js"></script>
+
+
+
+
+
+<script src="mod_EmployeeReview/scripts/controllers/SurveyDashboardctrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/AppCreateQuestsCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/QuestionsListCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/TemplatesListCtrl.js"></script>
+<script src="mod_EmployeeReview/scripts/controllers/TemplateViewCtrl.js"></script>
+
+
+
+
+
+<script src="mod_EmployeeReview/views/dashboard/UrlSharing.js"></script>
+
+
+
+
+<script src="mod_EmployeeReview/views/dashboard/FormController.js"></script>
+
+
+<script src="mod_EmployeeReview/views/sample/sample.js"></script>
+
+<script src="mod_EmployeeReview/scripts/controllers/SurveyFormCtrl.js"></script>
+
+
+<script src="mod_EmployeeReview/scripts/services/surveyService.js"></script>
+<script src="mod_EmployeeReview/scripts/services/templateService.js"></script>
+<script src="mod_EmployeeReview/scripts/services/customerService.js"></script>
+
+
+
+
+
+<script type="text/javascript" src="/assets/jsapi.js"> </script>
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+</script>
+
+
+
+</body>
+</html>

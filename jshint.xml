@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite name="jshint" tests="12" failures="0" errors="0">
+	<testcase name="jshint" />
+	<testcase name="client/mod_EmployeeReview/mod.EmployeeReview.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/controllers/Assign.adminCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/controllers/AssignmentsList.adminCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/controllers/ReviewDisplay.userCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/controllers/ReviewResponse.adminCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/controllers/SurveySchedules.adminCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/services/customerService.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/services/surveyService.js" />
+	<testcase name="client/mod_EmployeeReview/scripts/services/templateService.js" />
+	<testcase name="client/mod_EmployeeReview/views/admin/EmployeeReview.adminCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/views/dashboard/EmployeeReview.dashboardCtrl.js" />
+	<testcase name="client/mod_EmployeeReview/views/menu/EmployeeReview.headerCtrl.js" />
+</testsuite>

@@ -1,0 +1,48 @@
+<section ng-controller="SurveyAssignmentsListCtrl" layout-padding ng-cloak>
+
+        <md-toolbar layout="row" >
+            <div class="md-toolbar-tools">
+                <span>Reviews</span>
+            </div>
+        </md-toolbar>
+
+        <md-content>
+            <md-list flex>
+                <div ng-show="reviews.length==0">
+                    <h2 class="md-caption">No Reviews Found</h2>
+                </div>
+                    <span ng-repeat="review in reviews">
+
+                        <md-list-item class="md-2-line" ng-if="review.submitted_on" ng-click="showResponse(review)">
+
+                            <img ng-src={{review.reviewee.photo_url}} ng-show="review.reviewee.photo_url"
+                                 class="md-avatar" alt="{{review.reviewee.name.charAt(0)}}"/>
+                            <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!review.reviewee.photo_url"
+                                 class="md-avatar" alt="{{review.reviewee.name.charAt(0)}}"/>
+
+                            <div class="md-list-item-text">
+                                <h2 class="md-headline">{{review.reviewee.name}} <md-icon ng-if="review.submitted_on" class="erGreenColor">check_circle</md-icon></h2>
+                                <md-icon ng-if="review.submitted_on"  class="md-secondary erBlueColor">navigate_next</md-icon>
+                                <p><small class="md-caption" ng-if="review.submitted_on"> {{review.reviewer.name}} from {{review.reviewer.customer.name}} replied to {{review.survey.name}} * {{review.submitted_on | date: 'mediumDate'}}</small>
+                                </p>
+                            </div>
+                        </md-list-item>
+                         <md-list-item class="md-2-line" ng-if="!review.submitted_on">
+                            <img ng-src={{review.reviewee.photo_url}} ng-show="review.reviewee.photo_url"
+                                 class="md-avatar" alt="{{review.reviewee.name.charAt(0)}}"/>
+                             <img ng-src="mod_EmployeeReview/assets/icons/avatar-generic.jpg" ng-show="!review.reviewee.photo_url"
+                                  class="md-avatar" alt="{{review.reviewee.name.charAt(0)}}"/>
+                            <div class="md-list-item-text">
+                                <h3 class="md-headline">{{review.reviewee.name}}</h3>
+                                <p><small class="md-caption" ng-show="!review.status">Draft</small>
+                                <small class="md-caption" ng-show="review.status">waiting on {{review.reviewer.name}} to reply on {{review.survey.name}}</small>
+                                </p>
+                            </div>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                    </span>
+            </md-list>
+        </md-content>
+
+</section>
+
